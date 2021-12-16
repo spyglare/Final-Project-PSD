@@ -7,13 +7,15 @@
 struct queue{
     char nama[10];
     int banyak;
+    int total;
+    int nomor;
     struct pesanan{
         char menu[30];
         int harga;
     }data[MAX];
 }antrian[MAX];
 
-int head = -1, tail = -1;
+int head = -1, tail = -1,no_order=0;;
 
 int isempty()
 {
@@ -33,8 +35,6 @@ int isfull()
 
 void enqueue()
 {
-    int total;
-
     if(isempty()){
         head = tail = 0;
         enqueue();
@@ -57,14 +57,16 @@ void enqueue()
             printf("Harga       : ", i+1);
             scanf("%d", &antrian[tail].data[i].harga);
         }
-
+        antrian[tail].total=0;
         for(int i=0; i<antrian[tail].banyak; i++)
         {
-            total = total + antrian[tail].data[i].harga;
+            antrian[tail].total = antrian[tail].total + antrian[tail].data[i].harga;
         }
-        printf("\nTotal Bayar = %d", total);
+        printf("\nTotal Bayar = %d", antrian[tail].total);
+        antrian[tail].nomor = no_order;
+        printf("\nNomor Pesanan : %d",antrian[tail].nomor);
+        ++no_order;
         ++tail;
-        printf("\nNomor Antrian : %d",tail);
     }
 }
 
@@ -74,8 +76,7 @@ void lihat_antrian()
         printf("\nMaaf, antrian kosong!\n");
     }
     else{
-        printf("\nData antrian saat ini\n");
-        printf("\nNo Antrian\tNama Pelanggan\n\n");
+        printf("\nData Antrian Saat Ini :\n");
         for(int i=head;i<tail;i++)
         {
             printf("%d\t\t%s",i+1,antrian[i].nama);
@@ -85,10 +86,29 @@ void lihat_antrian()
 
 void dequeue()
 {
+    int count;
     if(isempty()){
         printf("\nMaaf, antrian kosong!\n");
     }
-
+    else{
+        for(int i=head;i<tail;i++){
+            if(antrian[i].banyak>antrian[i+1].banyak){
+                count=antrian[i].banyak;
+            }
+            else{
+                count=antrian[i+1].banyak;
+            }
+            strcpy(antrian[i].nama,antrian[i+1].nama);
+            strcpy(antrian[i].banyak,antrian[i+1].banyak);
+            strcpy(antrian[i].total,antrian[i+1].total);
+            strcpy(antrian[i].nomor,antrian[i+1].nomor);
+            for(int i=head;i<tail;i++){
+                
+            }
+        }
+        tail--;
+        printf("\nAntrian Berhasil Dihapus!");
+    }
 }
 
 void clear()
