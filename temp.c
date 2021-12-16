@@ -136,13 +136,30 @@ void clear()
 
 void tambah_menu()
 {
-
+    name *s
+    int n, i, j;
+    printf("Berapa Menu yang ingin ditambahkan? : ");
+    scanf("%d",&n);
+    
+    s = (name*)calloc(n, sizeof(name));
+    
+    for(i=0;i<n;i++) {
+        printf("Masukan Nomor : ");
+        scanf ("%d",&s[i]);
+        fflush(stdin);
+        printf("Masukan Menu  :");
+        scanf ("%[^\n]s",s[i].menu);
+        for(j=0;j<1;j++){
+            printf("Masukan Harga %d : ", j+1);
+            scanf ("%d",&s[i].sub[j].mark); 
+        }
+    } 
 }
 
-//void lihat_menu()
-//{
+void lihat_menu()
+{
 
-//}
+}
 
 void title(){
     system ("cls");
