@@ -65,6 +65,7 @@ void enqueue()
 
 void lihat_antrian()
 {
+    int i;
     if(isempty())       //Mengecek apakah ada data pada antrian atau tidak
         printf("Maaf, antrian kosong!\n");
     else
