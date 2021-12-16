@@ -61,7 +61,7 @@ void enqueue()
     }
 }
 
-void lihat_antrian()
+void print()
 {
 
 }
@@ -119,7 +119,7 @@ int main()
                     getch();
                     break;
                 case 2 :
-                    lihat_antrian();
+                    print();
                     getch();
                     break;
                 case 3 :
