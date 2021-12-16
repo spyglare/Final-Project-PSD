@@ -1,18 +1,21 @@
 #include <stdio.h>
+#include <conio.h>
 #include <stdlib.h>
 #include <string.h>
 #define MAX 10
 
 struct queue{
-    int nomor;
     char nama[10];
-    char menu[30];
-    int harga;
-}data[MAX];
+    int banyak;
+    int total;
+    int nomor;
+    struct pesanan{
+        char menu[30];
+        int harga;
+    }data[MAX];
+}antrian[MAX];
 
-int head = -1, tail = -1;
-
-int banyak, total, total2, no = 0;
+int head = -1, tail = -1,no_order=1;
 
 int isempty()
 {
@@ -30,68 +33,105 @@ int isfull()
         return 0;
 }
 
-void enqueue(int p)
+void enqueue()
 {
-    banyak=0;
-    if(isempty())
-    {
+    if(isempty()){
         head = tail = 0;
+        enqueue();
+    }
+    else if(isfull()){
+        printf("\nAntrian Sudah Penuh!");
     }
     else{
-        ++tail;
-        printf("\nMasukkan nomor antrian : ");
-        scanf("%d", &data[tail].nomor);
-        printf("\nMasukan nama pelanggan :");
-        scanf("%s", &data[tail].nama);
-        lihat_menu();
+        printf("\n===================================\n");
+        printf("       NOMOR ANTRIAN ANDA\n\t      0%d\n", no_order);
+        printf("    Antrian Yang Menunggu : %d\n", tail);
+        printf("===================================\n");
+        printf("\nMasukan Nama Pelanggan : ");
+        fflush(stdin);
+        fgets(antrian[tail].nama,10,stdin);
+        //lihat_menu();
         printf("Banyak menu yang ingin dipesan : ");
-        scanf("%d", &banyak);
-        for(int i=0; i<banyak; i++)
+        scanf("%d", &antrian[tail].banyak);
+        for(int i=0; i<antrian[tail].banyak; i++)
         {
             printf("\nMenu %d      : ", i+1);
             fflush(stdin);
-            fgets(data[tail].menu,30,stdin);
+            fgets(antrian[tail].data[i].menu,30,stdin);
             printf("Harga       : ", i+1);
-            scanf("%d", &data[i].harga);
+            scanf("%d", &antrian[tail].data[i].harga);
         }
-
-        total  = 0;
-        total2 = 0;
-        
-        for(int i=0; i<banyak; i++)
+        antrian[tail].total=0;
+        for(int i=0; i<antrian[tail].banyak; i++)
         {
-            total = data[i].harga + data[i+1].harga;
-            total2 = total2+total;
-            i++;
+            antrian[tail].total = antrian[tail].total + antrian[tail].data[i].harga;
         }
-        printf("\nTotal Bayar = %d", total);
-    }data[tail].nomor = p;
+        printf("\nTotal Bayar = %d", antrian[tail].total);
+        antrian[tail].nomor = no_order;
+        ++no_order;
+        ++tail;
+    }
 }
 
 void lihat_antrian()
 {
-    int i;
-    if(isempty())       //Mengecek apakah ada data pada antrian atau tidak
-        printf("Maaf, antrian kosong!\n");
-    else
-    {
-        printf("\nData antrian saat ini\n");    //menampilkan data yang ada pada antrian
+    if(isempty()){
+        printf("\nMaaf, antrian kosong!\n");
+    }
+    else{
+        printf("\nData Antrian Saat Ini :\n");
         printf("\nNo Antrian\tNama Pelanggan\tPesanan\n");
-        for(int i=head;i<=tail;i++)
+        for(int i=head;i<tail;i++)
         {
-            printf("   %d\t\t  %s \t\t %s \n",data[i+1].nomor,data[i+1].nama,data[i+1].menu);
+            int count = antrian[i].banyak;
+            printf("%d\t\t%s",antrian[i].nomor,antrian[i].nama);
+            for(int j=0;j<count;j++){
+                printf("\t\t\t\t%s\n",antrian[i].data[j].menu);
+            }
         }
     }
 }
 
 void dequeue()
 {
-
+    int count;
+    if(isempty()){
+        printf("\nMaaf, antrian kosong!\n");
+    }
+    else{
+        for(int i=head;i<tail;i++){
+            if(antrian[i].banyak>antrian[i+1].banyak){
+                count=antrian[i].banyak;
+            }
+            if(antrian[i].banyak>antrian[i+1].banyak){
+                count=antrian[i].banyak;
+            }
+            if(antrian[i].banyak<antrian[i+1].banyak){
+                count=antrian[i+1].banyak;
+            }
+            strcpy(antrian[i].nama,antrian[i+1].nama);
+            antrian[i].banyak = antrian[i+1].banyak;
+            antrian[i].total = antrian[i+1].total;
+            antrian[i].nomor = antrian[i+1].nomor;
+            for(int j=0;j<count;j++){
+                strcpy(antrian[i].data[j].menu,antrian[i+1].data[j+1].menu);
+                antrian[i].data[j].harga = antrian[i+1].data[j+1].harga;
+            }
+        }
+        tail--;
+        printf("\nAntrian Berhasil Dihapus!");
+    }
 }
 
 void clear()
 {
-
+    if(isempty()){
+        printf("\nMaaf, antrian kosong!\n");
+    }
+    else{
+        head=tail=-1;
+        printf("\nAntrian Berhasil Dikosongkan!");
+    }
 }
 
 void tambah_menu()
@@ -99,10 +139,10 @@ void tambah_menu()
 
 }
 
-void lihat_menu()
-{
+//void lihat_menu()
+//{
 
-}
+//}
 
 void title(){
     system ("cls");
@@ -111,7 +151,7 @@ void title(){
 
 int main()
 {
-    int pil, nomor;
+    int pil,out;
 
     do{
             title();
@@ -123,18 +163,12 @@ int main()
             printf("   5. Tambah Menu\n");
             printf("   6. Lihat Menu\n");
             printf("   7. Exit\n");
-            printf("Ketik Pilihan : ");
+            printf("\nKetik Pilihan : ");
             scanf("%d", &pil);
             switch(pil)
             {
                 case 1:
-                    nomor = no;
-                    printf("\n===================================\n");
-                    printf("       NOMOR ANTRIAN ANDA\n\t      0%d\n", no);
-                    printf("    Antrian yang Menunggu : %d\n", tail);
-                    no++;
-                    printf("===================================\n");
-                    enqueue(nomor);
+                    enqueue();
                     getch();
                     break;
                 case 2 :
@@ -154,12 +188,15 @@ int main()
                     getch();
                     break;
                 case 6 :
-                    lihat_menu();
+                    //lihat_menu();
                     getch();
                     break;
             }
         }while(pil!=7);
-        printf("\nAnda yakin ingin keluar? Tekan 1 jika ya ");
-        getch();
+        printf("\nAnda Yakin Ingin Keluar? Tekan 1 Jika Ya ");\
+        scanf("%d",&out);
+        if(out!=1){
+            main ();
+        }
         return 0;
 }
