@@ -73,7 +73,7 @@ void lihat_antrian()
         printf("\nNo Antrian\tNama Pelanggan\n");
         for(i=front;i<=rear;i++)
         {
-            printf("%d\t%s\n",buffer[i+1].nopemilih,buffer[i+1].nama);
+            printf("%d\t%s\n",data[i+1].nomor,data[i+1].nama);
         }
     }
 }
