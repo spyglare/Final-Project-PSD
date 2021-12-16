@@ -41,7 +41,7 @@ void enqueue()
         printf("\nMasukkan nomor antrian : ");
         scanf("%d", &data[tail].nomor);
         printf("\nMasukan nama pelanggan :");
-        scanf("%c", &data[tail].nama);
+        scanf("%s", &data[tail].nama);
         lihat_menu();
         printf("Banyak menu yang ingin dipesan : ");
         scanf("%d", &banyak);
