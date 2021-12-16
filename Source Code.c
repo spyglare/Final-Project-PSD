@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <conio.h> 
 #include <stdlib.h>
 #define MAX 10
 
@@ -72,7 +73,12 @@ void dequeue()
 
 void clear()
 {
-
+    if(isEmpty())
+        printf("\nAntrian Kosong!");
+    else
+        head=tail=-1;
+        printf("\nAntrian Berhasil Dikosongkan!");
+    
 }
 
 void tambah_menu()
