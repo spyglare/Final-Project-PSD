@@ -109,14 +109,14 @@ void dequeue()
             if(antrian[i].banyak<antrian[i+1].banyak){
                 count=antrian[i+1].banyak;
             }
+            for(int j=0;j<count;j++){
+                strcpy(antrian[i].data[j].menu,antrian[i+1].data[j].menu);
+                antrian[i].data[j].harga = antrian[i+1].data[j+1].harga;
+            }
             strcpy(antrian[i].nama,antrian[i+1].nama);
             antrian[i].banyak = antrian[i+1].banyak;
             antrian[i].total = antrian[i+1].total;
             antrian[i].nomor = antrian[i+1].nomor;
-            for(int j=0;j<count;j++){
-                strcpy(antrian[i].data[j].menu,antrian[i+1].data[j+1].menu);
-                antrian[i].data[j].harga = antrian[i+1].data[j+1].harga;
-            }
         }
         tail--;
         printf("\nAntrian Berhasil Dihapus!");
