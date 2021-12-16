@@ -111,7 +111,7 @@ void dequeue()
             }
             for(int j=0;j<count;j++){
                 strcpy(antrian[i].data[j].menu,antrian[i+1].data[j].menu);
-                antrian[i].data[j].harga = antrian[i+1].data[j+1].harga;
+                antrian[i].data[j].harga = antrian[i+1].data[j].harga;
             }
             strcpy(antrian[i].nama,antrian[i+1].nama);
             antrian[i].banyak = antrian[i+1].banyak;
