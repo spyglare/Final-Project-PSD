@@ -12,7 +12,7 @@ struct queue{
 
 int head = -1, tail = -1;
 
-int banyak, total, total2;
+int banyak, total, total2, no = 0;
 
 int isempty()
 {
@@ -30,9 +30,9 @@ int isfull()
         return 0;
 }
 
-void enqueue()
+void enqueue(int p)
 {
-    banyak=0;
+   
     if(isempty())
     {
         head = tail = 0;
@@ -65,7 +65,7 @@ void enqueue()
             i++;
         }
         printf("\nTotal Bayar = %d", total);
-    }
+    }data[tail].nomor = p;
 }
 
 void lihat_antrian()
@@ -76,10 +76,10 @@ void lihat_antrian()
     else
     {
         printf("\nData antrian saat ini\n");    //menampilkan data yang ada pada antrian
-        printf("\nNo Antrian\tNama Pelanggan\tPesanan\t\n");
+        printf("\nNo Antrian\tNama Pelanggan\n");
         for(int i=head;i<=tail;i++)
         {
-            printf("   %d\t\t  %s \t\t %s \n",data[i+1].nomor,data[i+1].nama,data[i+1].menu);
+            printf("   %d\t\t  %s\n",data[i+1].nomor,data[i+1].nama);
         }
     }
 }
@@ -111,7 +111,7 @@ void title(){
 
 int main()
 {
-    int pil;
+    int pil, nomor;
 
     do{
             title();
@@ -128,7 +128,13 @@ int main()
             switch(pil)
             {
                 case 1:
-                    enqueue();
+                    nomor = no;
+                    printf("\n===================================\n");
+                    printf("       NOMOR ANTRIAN ANDA\n\t      0%d\n", no);
+                    printf("    Antrian yang Menunggu : %d\n", tail);
+                    no++;
+                    printf("===================================\n");
+                    enqueue(nomor);
                     getch();
                     break;
                 case 2 :
