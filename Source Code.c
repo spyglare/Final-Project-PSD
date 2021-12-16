@@ -64,7 +64,7 @@ void enqueue()
     }
 }
 
-totalbayar()
+void totalbayar()
 {
     total=0;
     total2=0;
@@ -74,7 +74,7 @@ totalbayar()
             total2 = total2+total;
             i++;
         }
-        printf("\nTotal Bayar = %d", total);
+        printf("\nTotal Bayar = %d", total2);
     
 }
 
