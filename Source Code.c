@@ -12,6 +12,8 @@ struct queue{
 
 int head = -1, tail = -1;
 
+int banyak, total;
+
 int isempty()
 {
     if(tail == -1)
@@ -30,8 +32,7 @@ int isfull()
 
 void enqueue()
 {
-    int banyak, total;
-
+   
     if(isempty())
     {
         head = tail = 0;
@@ -61,6 +62,20 @@ void enqueue()
         }
         printf("\nTotal Bayar = %d", total);
     }
+}
+
+totalbayar()
+{
+    total=0;
+    total2=0;
+    for(int i=0; i<banyak; i++)
+        {
+            total = data[i].harga + data[i+1].harga;
+            total2 = total2+total;
+            i++;
+        }
+        printf("\nTotal Bayar = %d", total);
+    
 }
 
 void lihat_antrian()
@@ -124,6 +139,7 @@ int main()
             {
                 case 1:
                     enqueue();
+                    totalbayar();
                     getch();
                     break;
                 case 2 :
