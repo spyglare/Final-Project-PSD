@@ -71,7 +71,7 @@ void lihat_antrian()
     {
         printf("\nData antrian saat ini\n");    //menampilkan data yang ada pada antrian
         printf("\nNo Antrian\tNama Pelanggan\n");
-        for(i=front;i<=rear;i++)
+        for(i=head;i<=tail;i++)
         {
             printf("%d\t%s\n",data[i+1].nomor,data[i+1].nama);
         }
