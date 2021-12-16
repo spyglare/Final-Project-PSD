@@ -15,7 +15,7 @@ struct queue{
     }data[MAX];
 }antrian[MAX];
 
-int head = -1, tail = -1,no_order=0;;
+int head = -1, tail = -1,no_order=1;
 
 int isempty()
 {
@@ -43,7 +43,11 @@ void enqueue()
         printf("\nAntrian Sudah Penuh!");
     }
     else{
-        printf("\nMasukan nama pelanggan :");
+        printf("\n===================================\n");
+        printf("       NOMOR ANTRIAN ANDA\n\t      0%d\n", no_order);
+        printf("    Antrian Yang Menunggu : %d\n", tail);
+        printf("===================================\n");
+        printf("\nMasukan Nama Pelanggan : ");
         fflush(stdin);
         fgets(antrian[tail].nama,10,stdin);
         //lihat_menu();
@@ -64,7 +68,6 @@ void enqueue()
         }
         printf("\nTotal Bayar = %d", antrian[tail].total);
         antrian[tail].nomor = no_order;
-        printf("\nNomor Pesanan : %d",antrian[tail].nomor);
         ++no_order;
         ++tail;
     }
@@ -77,9 +80,14 @@ void lihat_antrian()
     }
     else{
         printf("\nData Antrian Saat Ini :\n");
+        printf("\nNo Antrian\tNama Pelanggan\tPesanan\n");
         for(int i=head;i<tail;i++)
         {
-            printf("%d\t\t%s",i+1,antrian[i].nama);
+            int count = antrian[i].banyak;
+            printf("%d\t\t%s",antrian[i].nomor,antrian[i].nama);
+            for(int j=0;j<count;j++){
+                printf("\t\t\t\t%s\n",antrian[i].data[j].menu);
+            }
         }
     }
 }
@@ -95,15 +103,19 @@ void dequeue()
             if(antrian[i].banyak>antrian[i+1].banyak){
                 count=antrian[i].banyak;
             }
-            else{
+            if(antrian[i].banyak>antrian[i+1].banyak){
+                count=antrian[i].banyak;
+            }
+            if(antrian[i].banyak<antrian[i+1].banyak){
                 count=antrian[i+1].banyak;
             }
             strcpy(antrian[i].nama,antrian[i+1].nama);
-            strcpy(antrian[i].banyak,antrian[i+1].banyak);
-            strcpy(antrian[i].total,antrian[i+1].total);
-            strcpy(antrian[i].nomor,antrian[i+1].nomor);
-            for(int i=head;i<tail;i++){
-                
+            antrian[i].banyak = antrian[i+1].banyak;
+            antrian[i].total = antrian[i+1].total;
+            antrian[i].nomor = antrian[i+1].nomor;
+            for(int j=0;j<count;j++){
+                strcpy(antrian[i].data[j].menu,antrian[i+1].data[j+1].menu);
+                antrian[i].data[j].harga = antrian[i+1].data[j+1].harga;
             }
         }
         tail--;
