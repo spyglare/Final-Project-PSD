@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <conio.h> 
+#include <conio.h>
 #include <stdlib.h>
 #define MAX 10
 
@@ -40,7 +40,7 @@ void enqueue()
         ++tail;
         printf("\nMasukkan nomor antrian : ");
         scanf("%d", &data[tail].nomor);
-        lihat_menu();
+        //lihat_menu();
         printf("Banyak menu yang ingin dipesan : ");
         scanf("%d", &banyak);
         for(int i=0; i<banyak; i++)
@@ -73,12 +73,13 @@ void dequeue()
 
 void clear()
 {
-    if(isEmpty())
+    if(isempty()){
         printf("\nAntrian Kosong!");
-    else
+    }
+    else{
         head=tail=-1;
         printf("\nAntrian Berhasil Dikosongkan!");
-    
+    }
 }
 
 void tambah_menu()
@@ -86,10 +87,10 @@ void tambah_menu()
 
 }
 
-void lihat_menu()
-{
+//void lihat_menu()
+//{
 
-}
+//}
 
 void title(){
     system ("cls");
@@ -98,8 +99,7 @@ void title(){
 
 int main()
 {
-    int pil;
-
+    int pil,kout;
     do{
             title();
             printf("Pilihan Menu : \n");
@@ -110,7 +110,7 @@ int main()
             printf("   5. Tambah Menu\n");
             printf("   6. Lihat Menu\n");
             printf("   7. Exit\n");
-            printf("Ketik Pilihan : ");
+            printf("\nKetik Pilihan : ");
             scanf("%d", &pil);
             switch(pil)
             {
@@ -135,12 +135,16 @@ int main()
                     getch();
                     break;
                 case 6 :
-                    lihat_menu();
+                    //lihat_menu();
                     getch();
                     break;
             }
         }while(pil!=7);
-        printf("\nAnda yakin ingin keluar? Tekan 1 jika ya ");
-        getch();
+        printf("\nAnda Yakin Ingin Keluar? Tekan 1 Jika Ya ");
+        scanf("%d",&kout);
+        if(kout!=1){
+            main();
+        }
+
         return 0;
 }
