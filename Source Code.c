@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include <conio.h>
 #include <stdlib.h>
+#include <string.h>
 #define MAX 10
 
 struct queue{
@@ -40,7 +40,9 @@ void enqueue()
         ++tail;
         printf("\nMasukkan nomor antrian : ");
         scanf("%d", &data[tail].nomor);
-        //lihat_menu();
+        printf("\nMasukan nama pelanggan :");
+        scanf("%c", &data[tail].nama);
+        lihat_menu();
         printf("Banyak menu yang ingin dipesan : ");
         scanf("%d", &banyak);
         for(int i=0; i<banyak; i++)
@@ -61,9 +63,19 @@ void enqueue()
     }
 }
 
-void print()
+void lihat_antrian()
 {
-
+    if(isempty())       //Mengecek apakah ada data pada antrian atau tidak
+        printf("Maaf, antrian kosong!\n");
+    else
+    {
+        printf("\nData antrian saat ini\n");    //menampilkan data yang ada pada antrian
+        printf("\nNo Antrian\tNama Pelanggan\n");
+        for(i=front;i<=rear;i++)
+        {
+            printf("%d\t%s\n",buffer[i+1].nopemilih,buffer[i+1].nama);
+        }
+    }
 }
 
 void dequeue()
@@ -73,13 +85,7 @@ void dequeue()
 
 void clear()
 {
-    if(isempty()){
-        printf("\nAntrian Kosong!");
-    }
-    else{
-        head=tail=-1;
-        printf("\nAntrian Berhasil Dikosongkan!");
-    }
+
 }
 
 void tambah_menu()
@@ -87,10 +93,10 @@ void tambah_menu()
 
 }
 
-//void lihat_menu()
-//{
+void lihat_menu()
+{
 
-//}
+}
 
 void title(){
     system ("cls");
@@ -99,7 +105,8 @@ void title(){
 
 int main()
 {
-    int pil,kout;
+    int pil;
+
     do{
             title();
             printf("Pilihan Menu : \n");
@@ -110,7 +117,7 @@ int main()
             printf("   5. Tambah Menu\n");
             printf("   6. Lihat Menu\n");
             printf("   7. Exit\n");
-            printf("\nKetik Pilihan : ");
+            printf("Ketik Pilihan : ");
             scanf("%d", &pil);
             switch(pil)
             {
@@ -119,7 +126,7 @@ int main()
                     getch();
                     break;
                 case 2 :
-                    print();
+                    lihat_antrian();
                     getch();
                     break;
                 case 3 :
@@ -135,16 +142,12 @@ int main()
                     getch();
                     break;
                 case 6 :
-                    //lihat_menu();
+                    lihat_menu();
                     getch();
                     break;
             }
         }while(pil!=7);
-        printf("\nAnda Yakin Ingin Keluar? Tekan 1 Jika Ya ");
-        scanf("%d",&kout);
-        if(kout!=1){
-            main();
-        }
-
+        printf("\nAnda yakin ingin keluar? Tekan 1 jika ya ");
+        getch();
         return 0;
 }
