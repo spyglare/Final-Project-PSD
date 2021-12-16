@@ -32,7 +32,7 @@ int isfull()
 
 void enqueue(int p)
 {
-   
+    banyak=0;
     if(isempty())
     {
         head = tail = 0;
@@ -76,10 +76,10 @@ void lihat_antrian()
     else
     {
         printf("\nData antrian saat ini\n");    //menampilkan data yang ada pada antrian
-        printf("\nNo Antrian\tNama Pelanggan\n");
+        printf("\nNo Antrian\tNama Pelanggan\tPesanan\n");
         for(int i=head;i<=tail;i++)
         {
-            printf("   %d\t\t  %s\n",data[i+1].nomor,data[i+1].nama);
+            printf("   %d\t\t  %s \t\t %s \n",data[i+1].nomor,data[i+1].nama,data[i+1].menu);
         }
     }
 }
