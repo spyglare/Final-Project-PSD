@@ -146,7 +146,20 @@ void tambah_menu()
 
 void title(){
     system ("cls");
-    printf("=============== PROGRAM ANTRIAN RUMAH MAKAN ===============\n\n");
+    printf("===========================================================\n");
+    printf("=====|     FINAL PROJECT PRAKTIKUM STRUKTUR DATA     |=====\n");
+    printf("=====|          PROGRAM ANTRIAN RUMAH MAKAN          |=====\n");
+    printf("=====|              KELOMPOK: 1 KELAS: D             |=====\n");
+    printf("===========================================================\n");
+    printf("                 _____ NAMA ANGGOTA _____                  \n");
+    printf("                                                           \n");
+    printf("    Luh Gede Tresna Dewi                |  2008561004      \n");
+    printf("    Ni Putu Vina Amandari               |  2008561049      \n");
+    printf("    Gede Krisna Surya Artajaya          |  2008561074      \n");
+    printf("    I Ketut Teguh Wibawa Lessmana Putra |  2008561084      \n");
+    printf("    Marcellino Rivaldo Pelaupessy       |  2008561104      \n");
+    printf("                                                           \n");
+    printf("===========================================================\n\n");
 }
 
 int main()
@@ -155,7 +168,7 @@ int main()
 
     do{
             title();
-            printf("Pilihan Menu : \n");
+            printf("                       _MAIN MENU_                         \n");
             printf("   1. Tambah Antrian\n");
             printf("   2. Lihat Antrian\n");
             printf("   3. Pelayanan\n");
