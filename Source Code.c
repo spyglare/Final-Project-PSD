@@ -43,6 +43,7 @@ void enqueue()
         printf("\nAntrian Sudah Penuh!");
     }
     else{
+        printf("\n")
         printf("\n===================================\n");
         printf("       NOMOR ANTRIAN ANDA\n\t      0%d\n", no_order);
         printf("    Antrian Yang Menunggu : %d\n", tail);
